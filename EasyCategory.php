@@ -36,7 +36,7 @@ class EasyCategory {
         if($video_count == 1) {
           $query = "UPDATE " . DB_PREFIX . "videos SET ";
           $query .= "`cat_id` = " . Database::Escape($_POST['easycategory_cat_id']) . " ";
-          $query .= "WHERE `video_id` = " . Database::Escape($_POST['easycategory_video_id'];
+          $query .= "WHERE `video_id` = " . Database::Escape($_POST['easycategory_video_id']);
           $db->Query ($query);
         }
 
