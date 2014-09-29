@@ -61,6 +61,24 @@ class EasyCategory {
 <h1>EasyCategory</h1>
 
 <?php if ($videos_total > 0): ?>
+<script type="text/javascript" src="<?=$config->theme_url?>/js/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('.video-category form').submit(function() {
+    var spinner = this.find('.spinner');
+    spinner.show();
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: this.attr( 'action' ),
+      data: this.serialize(),
+      success: function( response ) {
+        spinner.hide();
+      }
+    });
+  });
+});
+</script>
 <div class="block list">
   <table>
     <thead>
@@ -89,7 +107,7 @@ class EasyCategory {
             <?php foreach ($categories as $cat_id => $cat_name): ?>
             <input type="radio" name="easycategory_cat_id" value="<?=$cat_id?>" <?= ($video->cat_id == $cat_id) ? 'checked' : ''?>> <?=$cat_name?><br>
             <?php endforeach; ?>
-            <p><input value="Update" type="submit"/></p>
+            <p><input value="Update" type="submit"/><img class='spinner' src="/cc-content/plugins/EasyCategory/spinner.gif" style="display:none"></p>
           </form>
         </td>
       </tr>
