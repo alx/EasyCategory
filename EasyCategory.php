@@ -83,7 +83,6 @@ class EasyCategory {
             <img src="<?=$config->thumb_url?>/<?=$video->filename?>.jpg" width="200px"/>
         </td>
         <td class="video-category">
-          <?=$video->cat_id?>
           <form method="post">
             <input type="hidden" name="easycategory_action" value="update"/>
             <input type="hidden" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
