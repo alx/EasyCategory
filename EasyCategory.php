@@ -59,7 +59,7 @@ class EasyCategory {
 
 <h1>EasyCategory</h1>
 
-<?php if ($total > 0): ?>
+<?php if ($videos_total > 0): ?>
 <div class="block list">
   <table>
     <thead>
