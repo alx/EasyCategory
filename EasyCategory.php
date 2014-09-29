@@ -29,28 +29,28 @@ class EasyCategory {
 
       if (isset ($_POST['easycategory_action']) &&  $_POST['easycategory_action'] == "update") {
 
-        $query = "SELECT * FROM " . DB_PREFIX . "videos WHERE `video_id` = " . Database::Escape($_POST['easycategory_video_id']);
-        $video_result = $db->Query ($query);
+        $video_query = "SELECT * FROM " . DB_PREFIX . "videos WHERE `video_id` = " . Database::Escape($_POST['easycategory_video_id']);
+        $video_result = $db->Query ($video_query);
         $video_count = $db->Count ($video_result);
 
         if($video_count == 1) {
-          $query = "UPDATE " . DB_PREFIX . "videos SET ";
-          $query .= "`cat_id` = " . Database::Escape($_POST['easycategory_cat_id']) . " ";
-          $query .= "WHERE `video_id` = " . Database::Escape($_POST['easycategory_video_id']);
-          $db->Query ($query);
+          $update_query = "UPDATE " . DB_PREFIX . "videos SET ";
+          $update_query .= "`cat_id` = " . Database::Escape($_POST['easycategory_cat_id']) . " ";
+          $update_query .= "WHERE `video_id` = " . Database::Escape($_POST['easycategory_video_id']);
+          $db->Query ($update_query);
         }
 
       }
 
-      $query = "SELECT video_id FROM " . DB_PREFIX . "videos WHERE status = 'approved'";
-      $query .= " ORDER BY video_id DESC";
-      $result = $db->Query ($query);
-      $total = $db->Count ($result);
+      $videos_query = "SELECT video_id FROM " . DB_PREFIX . "videos WHERE status = 'approved'";
+      $videos_query .= " ORDER BY video_id DESC";
+      $videos_result = $db->Query ($videos_query);
+      $videos_total = $db->Count ($videos_result);
 
       $categories = array();
       // Retrieve Category names
-      $query = "SELECT cat_id, cat_name FROM " . DB_PREFIX . "categories";
-      $cat_result = $db->Query ($query);
+      $cat_query = "SELECT cat_id, cat_name FROM " . DB_PREFIX . "categories";
+      $cat_result = $db->Query ($cat_query);
       while ($row = $db->FetchObj ($cat_result)) {
           $categories[$row->cat_id] = $row->cat_name;
       }
@@ -69,7 +69,7 @@ class EasyCategory {
         </tr>
     </thead>
     <tbody>
-    <?php while ($row = $db->FetchObj ($result)): ?>
+    <?php while ($row = $db->FetchObj ($videos_result)): ?>
 
       <?php
         $odd = empty ($odd) ? true : false;
@@ -85,7 +85,7 @@ class EasyCategory {
           <?=$video->cat_id?>
           <form method="post">
             <input type="hidden" name="easycategory_action" value="update"/>
-            <input type="hidden" name="easycategory_video_id" value="<?= $row->video_id ?>"/>
+            <input type="hidden" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
             <?php foreach ($categories as $cat_id => $cat_name): ?>
             <input type="radio" name="easycategory_cat_id" value="<?=$cat_id?>" <?= ($video->cat_id == $cat_id) ? 'checked' : ''?>> <?=$cat_name?><br>
             <?php endforeach; ?>
