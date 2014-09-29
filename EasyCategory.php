@@ -65,17 +65,16 @@ class EasyCategory {
 <script>
 $(document).ready(function(){
   $('.video-category form').submit(function() {
-    var spinner = this.find('.spinner');
+    var spinner = $(this).find('.spinner');
     spinner.show();
-    event.preventDefault();
     $.ajax({
       type: "POST",
-      url: this.attr( 'action' ),
-      data: this.serialize(),
+      data: $(this).serialize(),
       success: function( response ) {
         spinner.hide();
       }
     });
+    return false;
   });
 });
 </script>
