@@ -29,14 +29,15 @@ class EasyCategory {
 
       if (isset ($_POST['easycategory_action']) &&  $_POST['easycategory_action'] == "update") {
 
-        $video_query = "SELECT * FROM " . DB_PREFIX . "videos WHERE `video_id` = " . Database::Escape($_POST['easycategory_video_id']);
+        $video_query = "SELECT * FROM " . DB_PREFIX . "videos WHERE `video_id` = " . $_POST['easycategory_video_id'];
+
         $video_result = $db->Query ($video_query);
         $video_count = $db->Count ($video_result);
 
         if($video_count == 1) {
           $update_query = "UPDATE " . DB_PREFIX . "videos SET ";
-          $update_query .= "`cat_id` = " . Database::Escape($_POST['easycategory_cat_id']) . " ";
-          $update_query .= "WHERE `video_id` = " . Database::Escape($_POST['easycategory_video_id']);
+          $update_query .= "`cat_id` = " . $_POST['easycategory_cat_id'] . " ";
+          $update_query .= "WHERE `video_id` = " . $_POST['easycategory_video_id'];
           $db->Query ($update_query);
         }
 
