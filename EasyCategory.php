@@ -50,8 +50,8 @@ class EasyCategory {
       $categories = array();
       // Retrieve Category names
       $query = "SELECT cat_id, cat_name FROM " . DB_PREFIX . "categories";
-      $result = $db->Query ($query);
-      while ($row = $db->FetchObj ($result)) {
+      $cat_result = $db->Query ($query);
+      while ($row = $db->FetchObj ($cat_result)) {
           $categories[$row->cat_id] = $row->cat_name;
       }
 
