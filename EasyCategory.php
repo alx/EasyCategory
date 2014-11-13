@@ -129,7 +129,8 @@ class EasyCategory {
 <script>
 $(document).ready(function(){
 
-  $('form.add_tag').submit(function() {
+  $('form.add_tag').on('submit', function(e) {
+    e.preventDefault();
     var tag_name=$(this).find('input.easycategory_tag_name').val();
     $.ajax(window.location.href, {
       type: "POST",
@@ -144,7 +145,8 @@ $(document).ready(function(){
     return false;
   });
 
-  $('li a.remove_tag').submit(function() {
+  $('li a.remove_tag').on('submit', function(e) {
+    e.preventDefault();
     $.ajax(window.location.href, {
       type: "POST",
       data: {
@@ -158,7 +160,8 @@ $(document).ready(function(){
     return false;
   });
 
-  $('.video-category form').submit(function() {
+  $('.video-category form').on('submit', function(e) {
+    e.preventDefault();
     var spinner = $(this).find('.spinner');
     spinner.show();
     $.ajax(window.location.href, {
