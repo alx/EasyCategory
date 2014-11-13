@@ -169,7 +169,7 @@ $(document).ready(function(){
         easycategory_action:"update",
         easycategory_video_id:$(this).parents('tr').find('.easycategory_video_id').val(),
         easycategory_title: $(this).parents('tr').find('.easycategory_title').val(),
-        easycategory_category: $(this).parents('tr').find('.easycategory_cat_id:checked').val()
+        easycategory_cat_id: $(this).parents('tr').find('.easycategory_cat_id:checked').val()
       },
       success: function( response ) {
         spinner.hide();
