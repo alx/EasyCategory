@@ -159,7 +159,7 @@ $(document).ready(function(){
     return false;
   });
 
-  $('.video-category form').submit( function(e) {
+  $('.video form').submit( function(e) {
     e.preventDefault();
     var spinner = $(this).find('.spinner');
     spinner.show();
@@ -214,7 +214,7 @@ $(document).ready(function(){
         $video = new Video ($row->video_id);
       ?>
 
-      <tr class="<?=$odd ? 'odd' : ''?>">
+      <tr class="video" class="<?=$odd ? 'odd' : ''?>">
         <form method="post">
           <input type="hidden" name="easycategory_action" value="update"/>
           <input type="hidden" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
