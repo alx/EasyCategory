@@ -188,7 +188,7 @@ $(document).ready(function(){
   </ul>
   <form method="post" class="add_tag">
     <input type="hidden" name="easycategory_action" value="add_tag"/>
-    <input type="text" name="easycategory_tag_name"/>
+    <input type="text" class="easycategory_tag_name" name="easycategory_tag_name"/>
     <input type="submit" value="Add Tag"/>
   </form>
 </div>
