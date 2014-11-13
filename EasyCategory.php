@@ -167,6 +167,7 @@ $(document).ready(function(){
       type: "POST",
       data: {
         easycategory_action:"update",
+        easycategory_video_id:$(this).parents('tr').find('.easycategory_video_id').val(),
         easycategory_title: $(this).parents('tr').find('.easycategory_title').val(),
         easycategory_category: $(this).parents('tr').find('.easycategory_cat_id:checked').val()
       },
@@ -217,7 +218,7 @@ $(document).ready(function(){
       <tr class="video" class="<?=$odd ? 'odd' : ''?>">
         <form method="post">
           <input type="hidden" name="easycategory_action" value="update"/>
-          <input type="hidden" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
+          <input type="hidden" class="easycategory_video_id" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
           <td class="video-title">
             <input type="text" class="easycategory_title" name="easycategory_title" value="<?=$video->title?>"><br>
             <img src="<?=$config->thumb_url?>/<?=$video->filename?>.jpg" width="200px"/><br>
