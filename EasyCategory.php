@@ -135,10 +135,10 @@ $(document).ready(function(){
       type: "POST",
       data: {
         easycategory_action:"add_tag",
-        easycategory_tag_name: tag_name
+        easycategory_tag_name:tag_name
       },
       success: function( response ) {
-        $('#tag_list').append_child('<li>'+tag_name+' (refresh page to delete)</li>');
+        $('#tag_list').append('<li>'+tag_name+' (refresh page to delete)</li>');
       }
     });
     return false;
