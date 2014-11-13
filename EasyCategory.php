@@ -36,6 +36,7 @@ class EasyCategory {
 
         if($video_count == 1) {
           $update_query = "UPDATE " . DB_PREFIX . "videos SET ";
+          $update_query .= "`title` = '" . mysql_real_escape_string($_POST['easycategory_title']) . "', ";
           $update_query .= "`cat_id` = " . $_POST['easycategory_cat_id'] . " ";
           $update_query .= "WHERE `video_id` = " . $_POST['easycategory_video_id'];
           $db->Query ($update_query);
@@ -95,20 +96,23 @@ $(document).ready(function(){
       ?>
 
       <tr class="<?=$odd ? 'odd' : ''?>">
-        <td class="video-title">
-            <a href="<?=ADMIN?>/videos_edit.php?id=<?=$video->video_id?>" class="large"><?=$video->title?></a><br />
-            <img src="<?=$config->thumb_url?>/<?=$video->filename?>.jpg" width="200px"/>
-        </td>
-        <td class="video-category">
-          <form method="post">
-            <input type="hidden" name="easycategory_action" value="update"/>
-            <input type="hidden" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
+        <form method="post">
+          <input type="hidden" name="easycategory_action" value="update"/>
+          <input type="hidden" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
+          <td class="video-title">
+            <input type="text" name="easycategory_title" value="<?=$video->title?>"><br>
+            <img src="<?=$config->thumb_url?>/<?=$video->filename?>.jpg" width="200px"/><br>
+            (<a href="<?=ADMIN?>/videos_edit.php?id=<?=$video->video_id?>" class="large">link</a>)
+          </td>
+          <td class="video-category">
             <?php foreach ($categories as $cat_id => $cat_name): ?>
             <input type="radio" name="easycategory_cat_id" value="<?=$cat_id?>" <?= ($video->cat_id == $cat_id) ? 'checked' : ''?>> <?=$cat_name?><br>
             <?php endforeach; ?>
             <p><input value="Update" type="submit"/><img class='spinner' src="/cc-content/plugins/EasyCategory/spinner.gif" style="display:none"></p>
-          </form>
-        </td>
+          </td>
+          <td class="video-tags">
+          </td>
+        </form>
       </tr>
       <?php endwhile; ?>
     </tbody>
