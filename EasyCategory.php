@@ -20,7 +20,7 @@ class EasyCategory {
 
       $create_query = 'CREATE TABLE `'.DB_PREFIX.'tags` (';
       $create_query .= '  `tag_id` bigint(20) NOT NULL AUTO_INCREMENT,';
-      $create_query .= '  `name` bigint(20) NOT NULL,';
+      $create_query .= '  `name` text NOT NULL,';
       $create_query .= '  PRIMARY KEY (`tag_id`)';
       $create_query .= ') DEFAULT CHARSET=utf8';
 
@@ -178,6 +178,7 @@ $(document).ready(function(){
 });
 </script>
 
+<!--
 <h2>Tag list</h2>
 
 <div class="block">
@@ -192,6 +193,7 @@ $(document).ready(function(){
     <input type="submit" value="Add Tag"/>
   </form>
 </div>
+-->
 
 <?php if ($videos_total > 0): ?>
 <div class="block list">
@@ -224,11 +226,6 @@ $(document).ready(function(){
             <input type="radio" class="easycategory_cat_id" name="easycategory_cat_id" value="<?=$cat_id?>" <?= ($video->cat_id == $cat_id) ? 'checked' : ''?>> <?=$cat_name?><br>
             <?php endforeach; ?>
             <p><input value="Update" type="submit"/><img class='spinner' src="/cc-content/plugins/EasyCategory/spinner.gif" style="display:none"></p>
-          </td>
-          <td class="video-tags">
-            <?php while ($row_tag = $db->FetchObj ($tags_result)): ?>
-            <input type="checkbox" value="<?=$row_tag->tag_id?>"> <?=$row_tag->name?><br>
-            <?php endwhile; ?>
           </td>
         </form>
       </tr>
