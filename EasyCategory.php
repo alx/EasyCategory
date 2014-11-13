@@ -145,7 +145,7 @@ $(document).ready(function(){
     return false;
   });
 
-  $('li a.remove_tag').on('submit', function(e) {
+  $('li a.remove_tag').on('click', function(e) {
     e.preventDefault();
     $.ajax(window.location.href, {
       type: "POST",
