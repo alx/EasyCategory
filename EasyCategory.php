@@ -58,7 +58,7 @@ class EasyCategory {
 
         if($_POST['easycategory_action'] == "add_tag") {
 
-          $tag_query = "SELECT * FROM " . DB_PREFIX . "tags WHERE `name` = " . $_POST['easycategory_tag_name'];
+          $tag_query = "SELECT * FROM " . DB_PREFIX . "tags WHERE `name`='" . mysql_real_escape_string($_POST['easycategory_tag_name'])."'";
 
           $tag_result = $db->Query ($tag_query);
           $tag_count = $db->Count ($tag_result);
