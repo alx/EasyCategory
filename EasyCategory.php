@@ -167,8 +167,8 @@ $(document).ready(function(){
       type: "POST",
       data: {
         easycategory_action:"update",
-        easycategory_title: $(this).find('input.easycategory_title').val(),
-        easycategory_category: $(this).find('input.easycategory_cat_id').val()
+        easycategory_title: $(this).parents('tr').find('.easycategory_title').val()
+        easycategory_category: $(this).parents('tr').find('.easycategory_cat_id:checked').val()
       },
       success: function( response ) {
         spinner.hide();
