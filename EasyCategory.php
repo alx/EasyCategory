@@ -129,7 +129,7 @@ class EasyCategory {
 <script>
 $(document).ready(function(){
 
-  $('form.add_tag').on('submit', function(e) {
+  $('form.add_tag').submit( function(e) {
     e.preventDefault();
     var tag_name=$(this).find('input.easycategory_tag_name').val();
     $.ajax(window.location.href, {
@@ -145,8 +145,7 @@ $(document).ready(function(){
     return false;
   });
 
-  $('li a.remove_tag').on('click', function(e) {
-    e.preventDefault();
+  $('li a.remove_tag').click(function() {
     $.ajax(window.location.href, {
       type: "POST",
       data: {
@@ -160,7 +159,7 @@ $(document).ready(function(){
     return false;
   });
 
-  $('.video-category form').on('submit', function(e) {
+  $('.video-category form').submit( function(e) {
     e.preventDefault();
     var spinner = $(this).find('.spinner');
     spinner.show();
