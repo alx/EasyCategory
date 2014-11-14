@@ -238,8 +238,8 @@ $(document).ready(function(){
         $tags_result = $db->Query ($tags_query);
 
         $videotags = array();
-        while ($row = $db->FetchObj ($tags_result)):
-          array_push($videotags, $row->tag_id);
+        while ($rowtag = $db->FetchObj ($tags_result)):
+          array_push($videotags, $rowtag->tag_id);
         endwhile;
       ?>
 
