@@ -159,7 +159,7 @@ $(document).ready(function(){
         easycategory_tag_name:tag_name
       },
       success: function( response ) {
-        $('#tag_list').append('<li>'+tag_name+' (refresh page to use/remove)</li>');
+        window.location.reload()
       }
     });
     return false;
@@ -174,7 +174,7 @@ $(document).ready(function(){
         easycategory_tag_id: $(this).data('tagid')
       },
       success: function( response ) {
-        item.remove();
+        window.location.reload()
       }
     });
     return false;
