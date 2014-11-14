@@ -165,7 +165,7 @@ $(document).ready(function(){
     return false;
   });
 
-  $('li a.remove_tag').click(function() {
+  $('a.remove_tag').click(function() {
     $.ajax(window.location.href, {
       type: "POST",
       data: {
