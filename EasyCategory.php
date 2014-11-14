@@ -120,6 +120,11 @@ class EasyCategory {
       } else {
 
       $videos_query = "SELECT video_id FROM " . DB_PREFIX . "videos WHERE status = 'approved'";
+
+      if(isset($_GET['cat_filter'])) {
+        $videos_query .= " AND cat_id=".mysql_real_escape_string($_GET['cat_filter']);
+      }
+
       $videos_query .= " ORDER BY video_id DESC";
       $videos_result = $db->Query ($videos_query);
       $videos_total = $db->Count ($videos_result);
@@ -217,6 +222,24 @@ $(document).ready(function(){
     <input type="text" class="easycategory_tag_name" name="easycategory_tag_name"/>
     <input type="submit" value="Add Tag"/>
   </form>
+</div>
+
+<div class="block">
+  <p>Category filter : <br>
+
+  <?php if(!isset($_GET['cat_filter'])) { ?>
+  <b><a href='/cc-admin/plugins_settings.php?plugin=EasyCategory'>All</a></b> |
+  <?php } else { ?>
+  <a href='/cc-admin/plugins_settings.php?plugin=EasyCategory'>All</a> |
+  <?php } ?>
+
+  <?php foreach ($categories as $cat_id => $cat_name): ?>
+  <?php if(intval($cat_id) == intval($_GET['catfilter'])) {
+  <b><a href='/cc-admin/plugins_settings.php?plugin=EasyCategory?cat_filter=<?=$cat_id?>'><?=$cat_name?></a></b> |
+  <?php } else { ?>
+  <a href='/cc-admin/plugins_settings.php?plugin=EasyCategory?cat_filter=<?=$cat_id?>'><?=$cat_name?></a> |
+  <?php } ?>
+  <?php endforeach; ?>
 </div>
 
 <?php if ($videos_total > 0): ?>
