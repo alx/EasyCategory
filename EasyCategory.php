@@ -190,8 +190,8 @@ $(document).ready(function(){
 
 <div class="block">
   <ul id="tag_list">
-  <?php foreach ($tags as $tag_id => $tag_name): ?>
-  <li><?=$tag_name?> (<a href="#" class="remove_tag" data-tagid="<?$tag_id?>">remove</a>)</li>
+  <?php foreach ($tags as $index => $tag): ?>
+  <li><?=$tag->name?> (<a href="#" class="remove_tag" data-tagid="<?$tag->tag_id?>">remove</a>)</li>
   <?php endforeach; ?>
   </ul>
   <form method="post" class="add_tag">
@@ -233,8 +233,8 @@ $(document).ready(function(){
             <p><input value="Update" type="submit"/><img class='spinner' src="/cc-content/plugins/EasyCategory/spinner.gif" style="display:none"></p>
           </td>
           <td class="video-tags">
-            <?php foreach ($tags as $tag_id => $tag_name): ?>
-            <input type="checkbox" value="<?=$tag_id?>"> <?=$tag_name?><br>
+            <?php foreach ($tags as $index => $tag): ?>
+            <input type="checkbox" value="<?=$tag->tag_id?>"> <?=$tag->name?><br>
             <?php endforeach; ?>
           </td>
         </form>
