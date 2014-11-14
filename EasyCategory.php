@@ -234,7 +234,7 @@ $(document).ready(function(){
   <?php } ?>
 
   <?php foreach ($categories as $cat_id => $cat_name): ?>
-  <?php if(intval($cat_id) == intval($_GET['catfilter'])) {
+  <?php if(intval($cat_id) == intval($_GET['catfilter'])) { ?>
   <b><a href='/cc-admin/plugins_settings.php?plugin=EasyCategory?cat_filter=<?=$cat_id?>'><?=$cat_name?></a></b> |
   <?php } else { ?>
   <a href='/cc-admin/plugins_settings.php?plugin=EasyCategory?cat_filter=<?=$cat_id?>'><?=$cat_name?></a> |
