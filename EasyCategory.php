@@ -159,13 +159,14 @@ $(document).ready(function(){
         easycategory_tag_name:tag_name
       },
       success: function( response ) {
-        $('#tag_list').append('<li>'+tag_name+' (refresh page to delete)</li>');
+        $('#tag_list').append('<li>'+tag_name+' (refresh page to use/remove)</li>');
       }
     });
     return false;
   });
 
   $('a.remove_tag').click(function() {
+    var item = $(this).parents('li');
     $.ajax(window.location.href, {
       type: "POST",
       data: {
@@ -173,7 +174,7 @@ $(document).ready(function(){
         easycategory_tag_id: $(this).data('tagid')
       },
       success: function( response ) {
-        $(this).parents('li').remove();
+        item.remove();
       }
     });
     return false;
