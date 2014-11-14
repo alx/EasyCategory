@@ -103,7 +103,7 @@ class EasyCategory {
             $delete_query="DELETE FROM " . DB_PREFIX . "video_tags WHERE `video_id`= " . $_POST['easycategory_video_id'];
             $db->Query ($delete_query);
 
-            $taglist = explode(',', $_POST['easycategory_video_id']);
+            $taglist = explode(',', $_POST['easycategory_tag_list']);
 
             if(sizeof($taglist) > 0) {
               $values = array();
@@ -244,6 +244,7 @@ $(document).ready(function(){
       ?>
 
       <tr class="video" class="<?=$odd ? 'odd' : ''?>">
+        <form>
         <input type="hidden" name="easycategory_action" value="update"/>
         <input type="hidden" class="easycategory_video_id" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
         <td class="video-title">
@@ -261,6 +262,7 @@ $(document).ready(function(){
           <input type="checkbox" value="<?=$tag->tag_id?>" <?= in_array($tag->tag_id, $videotags) ? 'checked' : ''?>> <?=$tag->name?><br>
           <?php endforeach; ?>
         </td>
+        </form>
       </tr>
       <?php endwhile; ?>
     </tbody>
