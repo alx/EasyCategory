@@ -191,7 +191,7 @@ $(document).ready(function(){
 <div class="block">
   <ul id="tag_list">
   <?php foreach ($tags as $index => $tag): ?>
-  <li><?=$tag->name?> (<a href="#" class="remove_tag" data-tagid="<?$tag->tag_id?>">remove</a>)</li>
+  <li><?=$tag->name?> (<a href="#" class="remove_tag" data-tagid="<?=$tag->tag_id?>">remove</a>)</li>
   <?php endforeach; ?>
   </ul>
   <form method="post" class="add_tag">
