@@ -234,7 +234,7 @@ $(document).ready(function(){
         $odd = empty ($odd) ? true : false;
         $video = new Video ($row->video_id);
 
-        $tags_query = "SELECT tag_id FROM " . DB_PREFIX . "videotags WHERE `video_id`=".row->video_id;
+        $tags_query = "SELECT tag_id FROM " . DB_PREFIX . "videotags WHERE `video_id`=".$row->video_id;
         $tags_result = $db->Query ($tags_query);
 
         $videotags = array();
