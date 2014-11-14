@@ -98,6 +98,21 @@ class EasyCategory {
             $update_query .= "`cat_id` = " . $_POST['easycategory_cat_id'] . " ";
             $update_query .= "WHERE `video_id` = " . $_POST['easycategory_video_id'];
             $db->Query ($update_query);
+
+
+            $delete_query="DELETE FROM " . DB_PREFIX . "video_tags WHERE `video_id`= " . $_POST['easycategory_video_id'];
+            $db->Query ($delete_query);
+
+            $taglist = explode(',', $_POST['easycategory_video_id']);
+
+            if(sizeof($taglist) > 0) {
+              $values = array();
+              foreach($taglist as $tag_id) {
+                array_push($values, "(".$_POST['easycategory_video_id'].", ".$tag_id.")");
+              }
+              $insert_query="INSERT INTO " . DB_PREFIX . "video_tags (`video_id`, `tag_id`) VALUES " . implode(',', $values);
+              $db->Query ($insert_query);
+            }
           }
 
         }
@@ -164,17 +179,19 @@ $(document).ready(function(){
     return false;
   });
 
-  $('.video form').submit( function(e) {
+  $('.video .update').click( function(e) {
     e.preventDefault();
-    var spinner = $(this).find('.spinner');
+    var spinner = $(this).find('.spinner'),
+        video = $(this).parents('.video');
     spinner.show();
     $.ajax(window.location.href, {
       type: "POST",
       data: {
         easycategory_action:"update",
-        easycategory_video_id:$(this).parents('tr').find('.easycategory_video_id').val(),
-        easycategory_title: $(this).parents('tr').find('.easycategory_title').val(),
-        easycategory_cat_id: $(this).parents('tr').find('.easycategory_cat_id:checked').val()
+        easycategory_video_id:video.find('.easycategory_video_id').val(),
+        easycategory_title: video.find('.easycategory_title').val(),
+        easycategory_cat_id: video.find('.easycategory_cat_id:checked').val(),
+        easycategory_tag_list: video.find('.video-tags input:checked').map(function(){ return $(this).val(); }).toArray().join(',')
       },
       success: function( response ) {
         spinner.hide();
@@ -219,25 +236,23 @@ $(document).ready(function(){
       ?>
 
       <tr class="video" class="<?=$odd ? 'odd' : ''?>">
-        <form method="post">
-          <input type="hidden" name="easycategory_action" value="update"/>
-          <input type="hidden" class="easycategory_video_id" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
-          <td class="video-title">
-            <input type="text" class="easycategory_title" name="easycategory_title" value="<?=$video->title?>"><br>
-            <img src="<?=$config->thumb_url?>/<?=$video->filename?>.jpg" width="200px"/>
-          </td>
-          <td class="video-category">
-            <?php foreach ($categories as $cat_id => $cat_name): ?>
-            <input type="radio" class="easycategory_cat_id" name="easycategory_cat_id" value="<?=$cat_id?>" <?= ($video->cat_id == $cat_id) ? 'checked' : ''?>> <?=$cat_name?><br>
-            <?php endforeach; ?>
-            <p><input value="Update" type="submit"/><img class='spinner' src="/cc-content/plugins/EasyCategory/spinner.gif" style="display:none"></p>
-          </td>
-          <td class="video-tags">
-            <?php foreach ($tags as $index => $tag): ?>
-            <input type="checkbox" value="<?=$tag->tag_id?>"> <?=$tag->name?><br>
-            <?php endforeach; ?>
-          </td>
-        </form>
+        <input type="hidden" name="easycategory_action" value="update"/>
+        <input type="hidden" class="easycategory_video_id" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
+        <td class="video-title">
+          <input type="text" class="easycategory_title" name="easycategory_title" value="<?=$video->title?>"><br>
+          <img src="<?=$config->thumb_url?>/<?=$video->filename?>.jpg" width="200px"/>
+        </td>
+        <td class="video-category">
+          <?php foreach ($categories as $cat_id => $cat_name): ?>
+          <input type="radio" class="easycategory_cat_id" name="easycategory_cat_id" value="<?=$cat_id?>" <?= ($video->cat_id == $cat_id) ? 'checked' : ''?>> <?=$cat_name?><br>
+          <?php endforeach; ?>
+          <p><input class="update" value="Update" type="submit"/><img class='spinner' src="/cc-content/plugins/EasyCategory/spinner.gif" style="display:none"></p>
+        </td>
+        <td class="video-tags">
+          <?php foreach ($tags as $index => $tag): ?>
+          <input type="checkbox" value="<?=$tag->tag_id?>"> <?=$tag->name?><br>
+          <?php endforeach; ?>
+        </td>
       </tr>
       <?php endwhile; ?>
     </tbody>
