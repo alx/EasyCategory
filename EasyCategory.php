@@ -233,6 +233,14 @@ $(document).ready(function(){
       <?php
         $odd = empty ($odd) ? true : false;
         $video = new Video ($row->video_id);
+
+        $tags_query = "SELECT tag_id FROM " . DB_PREFIX . "videotags WHERE `video_id`=".row->video_id;
+        $tags_result = $db->Query ($tags_query);
+
+        $videotags = array();
+        while ($row = $db->FetchObj ($tags_result)):
+          array_push($videotags, $row->tag_id);
+        endwhile;
       ?>
 
       <tr class="video" class="<?=$odd ? 'odd' : ''?>">
@@ -250,7 +258,7 @@ $(document).ready(function(){
         </td>
         <td class="video-tags">
           <?php foreach ($tags as $index => $tag): ?>
-          <input type="checkbox" value="<?=$tag->tag_id?>"> <?=$tag->name?><br>
+          <input type="checkbox" value="<?=$tag->tag_id?>" <?= in_array($tag_id, $videotags) ? 'checked' : ''?>> <?=$tag->name?><br>
           <?php endforeach; ?>
         </td>
       </tr>
