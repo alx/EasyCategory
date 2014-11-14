@@ -258,7 +258,7 @@ $(document).ready(function(){
         </td>
         <td class="video-tags">
           <?php foreach ($tags as $index => $tag): ?>
-          <input type="checkbox" value="<?=$tag->tag_id?>" <?= in_array($tag_id, $videotags) ? 'checked' : ''?>> <?=$tag->name?><br>
+          <input type="checkbox" value="<?=$tag->tag_id?>" <?= in_array($tag->tag_id, $videotags) ? 'checked' : ''?>> <?=$tag->name?><br>
           <?php endforeach; ?>
         </td>
       </tr>
