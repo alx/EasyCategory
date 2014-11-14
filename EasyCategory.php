@@ -192,7 +192,7 @@ $(document).ready(function(){
   <ul id="tag_list">
   <?php foreach ($tags as $tag_id => $tag_name): ?>
   <li><?=$tag_name?> (<a href="#" class="remove_tag" data-tagid="<?$tag_id?>">remove</a>)</li>
-  <?php endwhile; ?>
+  <?php endforeach; ?>
   </ul>
   <form method="post" class="add_tag">
     <input type="hidden" name="easycategory_action" value="add_tag"/>
@@ -233,9 +233,9 @@ $(document).ready(function(){
             <p><input value="Update" type="submit"/><img class='spinner' src="/cc-content/plugins/EasyCategory/spinner.gif" style="display:none"></p>
           </td>
           <td class="video-tags">
-            <?php while ($row_tag = $db->FetchObj ($tags_result)): ?>
-            <input type="checkbox" value="<?=$row_tag->tag_id?>"> <?=$row_tag->name?><br>
-            <?php endwhile; ?>
+            <?php foreach ($tags as $tag_id => $tag_name): ?>
+            <input type="checkbox" value="<?=$tag_id?>"> <?=$tag_name?><br>
+            <?php endforeach; ?>
           </td>
         </form>
       </tr>
