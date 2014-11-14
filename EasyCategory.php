@@ -113,6 +113,11 @@ class EasyCategory {
       $tags_result = $db->Query ($tags_query);
       $tags_total = $db->Count ($tags_result);
 
+      $tags = array();
+      while ($row = $db->FetchObj ($tags_result)):
+        array_push($tags, $row);
+      endwhile;
+
       $categories = array();
       // Retrieve Category names
       $cat_query = "SELECT cat_id, cat_name FROM " . DB_PREFIX . "categories";
@@ -185,8 +190,8 @@ $(document).ready(function(){
 
 <div class="block">
   <ul id="tag_list">
-  <?php while ($row = $db->FetchObj ($tags_result)): ?>
-  <li><?=$row->name?> (<a href="#" class="remove_tag" data-tagid="<?$row->tag_id?>">remove</a>)</li>
+  <?php foreach ($tags as $tag_id => $tag_name): ?>
+  <li><?=$tag_name?> (<a href="#" class="remove_tag" data-tagid="<?$tag_id?>">remove</a>)</li>
   <?php endwhile; ?>
   </ul>
   <form method="post" class="add_tag">
@@ -219,8 +224,7 @@ $(document).ready(function(){
           <input type="hidden" class="easycategory_video_id" name="easycategory_video_id" value="<?= $video->video_id ?>"/>
           <td class="video-title">
             <input type="text" class="easycategory_title" name="easycategory_title" value="<?=$video->title?>"><br>
-            <img src="<?=$config->thumb_url?>/<?=$video->filename?>.jpg" width="200px"/><br>
-            <a href="<?=ADMIN?>/videos_edit.php?id=<?=$video->video_id?>">Edit video</a>
+            <img src="<?=$config->thumb_url?>/<?=$video->filename?>.jpg" width="200px"/>
           </td>
           <td class="video-category">
             <?php foreach ($categories as $cat_id => $cat_name): ?>
