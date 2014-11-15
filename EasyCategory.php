@@ -102,7 +102,7 @@ class EasyCategory {
             $delete_query="DELETE FROM " . DB_PREFIX . "video_tags WHERE `video_id`= " . $_POST['easycategory_video_id'];
             $db->Query ($delete_query);
 
-            if(sizeof($_POST['easycategory_tag_list']) > 0) {
+            if($_POST['easycategory_tag_list'] != "" && sizeof($_POST['easycategory_tag_list']) > 0) {
               $taglist = explode(',', $_POST['easycategory_tag_list']);
 
               if(sizeof($taglist) > 0) {
