@@ -99,19 +99,20 @@ class EasyCategory {
             $update_query .= "WHERE `video_id` = " . $_POST['easycategory_video_id'];
             $db->Query ($update_query);
 
-
             $delete_query="DELETE FROM " . DB_PREFIX . "video_tags WHERE `video_id`= " . $_POST['easycategory_video_id'];
             $db->Query ($delete_query);
 
-            $taglist = explode(',', $_POST['easycategory_tag_list']);
+            if(sizeof($_POST['easycategory_tag_list']) > 0) {
+              $taglist = explode(',', $_POST['easycategory_tag_list']);
 
-            if(sizeof($taglist) > 0) {
-              $values = array();
-              foreach($taglist as $tag_id) {
-                array_push($values, "(".$_POST['easycategory_video_id'].", ".$tag_id.")");
+              if(sizeof($taglist) > 0) {
+                $values = array();
+                foreach($taglist as $tag_id) {
+                  array_push($values, "(".$_POST['easycategory_video_id'].", ".$tag_id.")");
+                }
+                $insert_query="INSERT INTO " . DB_PREFIX . "video_tags (`video_id`, `tag_id`) VALUES " . implode(',', $values);
+                $db->Query ($insert_query);
               }
-              $insert_query="INSERT INTO " . DB_PREFIX . "video_tags (`video_id`, `tag_id`) VALUES " . implode(',', $values);
-              $db->Query ($insert_query);
             }
           }
 
